@@ -20,6 +20,7 @@
 <<<<<<< HEAD
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
+    "grocery-app-server": "file:",
     "mongodb": "^6.9.0",
     "mongoose": "^8.7.1"
 =======
