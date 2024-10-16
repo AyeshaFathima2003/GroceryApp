@@ -13,6 +13,10 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "concurrently": "^9.0.1"
+    "concurrently": "^9.0.1",
+    "dotenv-cli": "^7.4.2"
+  },
+  "dependencies": {
+    "groceryapp": "file:"
   }
 }
