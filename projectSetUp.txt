@@ -1,0 +1,16 @@
+clone the git repo from ayesha
+
+steps gibson did
+   3 npm init -y
+   4 mkdir grocerya-app-server
+   5 mkdir grocery-app-server
+   6 cd .\grocery-app-server\
+   7 npm init -y...
+   8 cd ..
+   9 ng new grocery-app-interface
+  10 npm install -g @angular/cli
+  11 ng new grocery-app-interface
+  12 ls
+  13 cd .\grocery-app-interface\
+
+steps everyone should follow
