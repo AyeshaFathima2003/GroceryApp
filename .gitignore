@@ -1,0 +1,4 @@
+node_modules/
+grocery-app-interface/node_modules/
+grocery-app-server/node_modules/
+.env
