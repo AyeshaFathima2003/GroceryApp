@@ -1,0 +1,18 @@
+{
+  "name": "groceryapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "dotenv -e .env concurrently \"npm run start:backend\" \"npm run start:frontend\"",
+    "start:backend": "cd ./grocery-app-server/ && npm start",
+    "start:frontend": "cd ./grocery-app-interface/  && npm start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^9.0.1"
+  }
+}
