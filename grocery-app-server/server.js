@@ -1,17 +1,38 @@
+// server.js
 const express = require('express');
-require('dotenv').config();
-const path = require('path');
+
+const userRoutes = require('./routes/userRoutes');
+const dotenv = require('dotenv');
+
+// Connect to MongoDB
+const connectDB = require('./config/db');
+connectDB();
+
+// Load environment variables
+dotenv.config();
+
 const app = express();
-const port = process.env.BACKEND_PORT || 6000;
 
-// Serve static files from the Angular app
-app.use(express.static(path.join(__dirname, '../frontend/dist/frontend')));
+// Middleware to parse JSON
+app.use(express.json());
 
-// API routes
-app.get('/api', (req, res) => {
-  res.send({ message: 'Hello from the backend!' });
+
+// Routes
+app.use('/api/user', userRoutes);
+
+//app.use('/api/user', userRoutes);
+
+// Define a home route for testing
+app.get('/', (req, res) => {
+    res.send('Welcome to the API');
 });
 
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
-});
+// Start server
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+
+
+
+
+
