@@ -84,8 +84,41 @@ const getUserProfile = async (req, res) => {
     }
 };
 
- // Export only the necessary functions
 
-module.exports = { signup, login, getUserProfile };
+const logoutUser = async (req, res) => {
+    try {
+        // Invalidate the token on the client-side by clearing it from storage.
+        // This response is for the client to clear their JWT token.
+        res.status(200).json({ message: 'User logged out successfully' });
+    } catch (error) {
+        res.status(500).json({ message: 'Error during logout', error });
+    }
+};
 
+const updateUserProfile = async (req, res) => {
+    try {
+        const userId = req.body.userId; // User ID from the JWT payload (authenticated user)
+        const { name, email, phone, addresses } = req.body;
 
+        console.log('User ID:', userId);
+        console.log('Update Data:', { name, email, phone, addresses });
+
+        // Find user by ID and update profile fields
+        const updatedUser = await User.findByIdAndUpdate(
+            userId,
+            { name, email, phone, addresses },
+            { new: true, runValidators: true } // Returns updated document & validates
+        );
+
+        if (!updatedUser) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        res.status(200).json({ message: 'Profile updated successfully', user: updatedUser });
+    } catch (error) {
+        console.error('Update Profile Error:', error);
+        res.status(500).json({ message: 'Error updating profile', error: error.message || error });
+    }
+};
+
+module.exports = { signup, login, getUserProfile, logoutUser, updateUserProfile };
