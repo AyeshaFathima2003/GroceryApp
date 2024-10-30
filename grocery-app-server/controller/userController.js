@@ -68,6 +68,24 @@ const login = async (req, res) => {
     }
 };
 
-module.exports = { signup, login };
+const getUserProfile = async (req, res) => {
+    try {
+        const userId = req.query.id; // Get userId from the request object
+
+        // Find the user by ID
+        const user = await User.findById(userId).select('-password'); // Exclude password from the response
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        res.status(200).json({ user });
+    } catch (error) {
+        res.status(500).json({ message: 'Error retrieving user profile', error });
+    }
+};
+
+ // Export only the necessary functions
+
+module.exports = { signup, login, getUserProfile };
 
 
