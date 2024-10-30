@@ -3,7 +3,8 @@ const dotenv = require('dotenv');
 const colors = require('colors');
 
 // Load environment variables from .env file
-dotenv.config({ path: '../.env' }); // Adjust the path as necessary
+
+dotenv.config();
 
 const connectDB = async () => {
   try {
