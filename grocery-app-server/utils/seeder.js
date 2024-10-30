@@ -1,104 +1,130 @@
-import mongoose from 'mongoose';
-import dotenv from 'dotenv';
-import colors from 'colors';
+const mongoose = require('mongoose');
+const User = require('../model/user');
+const Product = require('../model/product');
+const Order = require('../model/order');
+const Payment = require('../model/order'); // Fixed import for Payment model
 
-import users from './data/user.js';
-import addresses from './data/addressData.js';
-import products from './data/productData.js';
-import orders from './data/orderData.js';
-import carts from './data/cartData.js';
-import wishlists from './data/wishlistData.js';
-import reviews from './data/reviewData.js';
-import orderItems from './data/orderItemData.js';
-import payments from './data/paymentData.js';
+const connectDb = require('../config/db');
 
+const users = [
+    {
+        name: 'John Doe',
+        email: 'john@example.com',
+        password: 'password123',
+        phone: '123-456-7890',
+        addresses: [{
+            street: '123 Main St',
+            city: 'Anytown',
+            state: 'CA',
+            zip: '12345',
+            country: 'USA'
+        }],
+        role: 'customer'
+    },
+    {
+        name: 'Jane Smith',
+        email: 'jane@example.com',
+        password: 'password123',
+        phone: '987-654-3210',
+        role: 'seller'
+    }
+];
 
-// Models
-import User from './model/user.js';
-import Address from './model/address.js';
-import Product from './model/product.js';
-import Order from './model/order.js';
-import Cart from './model/cart.js';
-import Wishlist from './model/wishlist.js';
-import Review from './model/review.js';
-import OrderItem from './model/orderItem.js';
-import Payment from './model/payment.js';
+const products = [
+    {
+        name: 'Product 1',
+        description: 'Description for Product 1',
+        price: 29.99,
+        stock: 100,
+        category: 'Electronics',
+        images: ['image1.jpg', 'image2.jpg']
+    },
+    {
+        name: 'Product 2',
+        description: 'Description for Product 2',
+        price: 49.99,
+        stock: 50,
+        category: 'Home',
+        images: ['image3.jpg']
+    }
+];
 
+const payments = [
+    {
+        amount: 29.99,
+        status: 'completed',
+        method: 'credit card'
+    },
+    {
+        amount: 49.99,
+        status: 'pending',
+        method: 'paypal'
+    }
+];
 
-dotenv.config();
-const uri = process.env.MONGO_URI;
+const orders = [
+    {
+        items: [{ productId: null, quantity: 1, price: 29.99 }],
+        totalAmount: 29.99,
+        status: 'completed',
+        paymentId: null // To be filled after payments are created
+    },
+    {
+        items: [{ productId: null, quantity: 2, price: 49.99 }],
+        totalAmount: 99.98,
+        status: 'pending',
+        paymentId: null // To be filled after payments are created
+    }
+];
 
-// Connect to MongoDB
-mongoose.connect(uri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
-  .then(() => console.log(`MongoDB Connected`.cyan.underline))
-  .catch(error => {
-    console.error(`Error: ${error.message}`.red.underline.bold);
-    process.exit(1);
-  });
+// Seed function
+const seedDatabase = async () => {
+    try {
+        // Connect to the database
+        await connectDb();
 
-// Insert Data Function
-const importData = async () => {
-  try {
-    // Clear existing data in collections
-    await User.deleteMany();
-    await Address.deleteMany();
-    await Product.deleteMany();
-    await Order.deleteMany();
-    await Cart.deleteMany();
-    await Wishlist.deleteMany();
-    await Review.deleteMany();
-    await OrderItem.deleteMany();
-    await Payment.deleteMany();
-    await Admin.deleteMany();
+        // Clear existing data
+        await User.deleteMany({});
+        await Product.deleteMany({});
+        await Payment.deleteMany({});
+        await Order.deleteMany({});
 
-    // Insert new records
-    await User.insertMany(users);
-    await Address.insertMany(addresses);
-    await Product.insertMany(products);
-    await Order.insertMany(orders);
-    await Cart.insertMany(carts);
-    await Wishlist.insertMany(wishlists);
-    await Review.insertMany(reviews);
-    await OrderItem.insertMany(orderItems);
-    await Payment.insertMany(payments);
-    await Admin.insertMany(admins);
+        // Create users
+        const createdUsers = await User.insertMany(users);
+        console.log('Users created:', createdUsers);
 
-    console.log('Data Imported!'.green.inverse);
-    process.exit();
-  } catch (error) {
-    console.error(`Error: ${error.message}`.red.inverse);
-    process.exit(1);
-  }
+        // Create products
+        const createdProducts = await Product.insertMany(products);
+        console.log('Products created:', createdProducts);
+
+        // Assign userId to payments
+        payments[0].userId = createdUsers[0]._id; // Assigning payment to first user
+        payments[1].userId = createdUsers[1]._id; // Assigning payment to second user
+
+        // Create payments
+        const createdPayments = await Payment.insertMany(payments);
+        console.log('Payments created:', createdPayments);
+
+        // Assign paymentId and productId to orders
+        orders[0].userId = createdUsers[0]._id; // Assigning order to first user
+        orders[0].paymentId = createdPayments[0]._id; // Assigning payment to order
+        orders[0].items[0].productId = createdProducts[0]._id; // Assigning product to first order
+
+        orders[1].userId = createdUsers[1]._id; // Assigning order to second user
+        orders[1].paymentId = createdPayments[1]._id; // Assigning payment to order
+        orders[1].items[0].productId = createdProducts[1]._id; // Assigning product to second order
+
+        // Create orders
+        const createdOrders = await Order.insertMany(orders);
+        console.log('Orders created:', createdOrders);
+
+        console.log('Database seeded successfully!');
+    } catch (err) {
+        console.error('Error seeding database:', err);
+    } finally {
+        mongoose.connection.close(); // Close the connection after seeding
+    }
 };
 
-// Delete Data Function
-const destroyData = async () => {
-  try {
-    await User.deleteMany();
-    await Address.deleteMany();
-    await Product.deleteMany();
-    await Order.deleteMany();
-    await Cart.deleteMany();
-    await Wishlist.deleteMany();
-    await Review.deleteMany();
-    await OrderItem.deleteMany();
-    await Payment.deleteMany();
-    await Admin.deleteMany();
-
-    console.log('Data Destroyed!'.red.inverse);
-    process.exit();
-  } catch (error) {
-    console.error(`Error: ${error.message}`.red.inverse);
-    process.exit(1);
-  }
-};
-
-// Run seeder script based on command
-if (process.argv[2] === '-d') {
-  destroyData();
-} else {
-  importData();
-}
+// Run the seed function
+seedDatabase();

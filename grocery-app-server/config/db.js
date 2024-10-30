@@ -1,29 +1,24 @@
-const { MongoClient } = require('mongodb');
+const mongoose = require('mongoose');
+const dotenv = require('dotenv');
+const colors = require('colors');
 
-// Connection URL
-const uri = process.env.MONGO_URI;
-
-// Create a new MongoClient
-const client = new MongoClient(uri, {
-  useUnifiedTopology: true,
-  useNewUrlParser: true,
-});
+// Load environment variables from .env file
+dotenv.config({ path: '../.env' }); // Adjust the path as necessary
 
 const connectDB = async () => {
   try {
-    // Connect the client to the server
-    await client.connect();
-    
-    console.log(`MongoDB Connected: ${client.s.options.servers[0].host}`.cyan.underline);
-    
-    // You can optionally return the database instance
-    // const db = client.db('your-database-name');
-    // return db;
+    // Check if MONGO_URI is defined
+    const uri = process.env.MONGO_URI; 
+    if (!uri) {
+      throw new Error('MONGO_URI is not defined in the .env file');
+    }
 
+    await mongoose.connect(uri, { serverSelectionTimeoutMS: 30000 });
+    console.log(`MongoDB Connected`.cyan.underline);
   } catch (error) {
     console.error(`Error: ${error.message}`.red.underline.bold);
     process.exit(1);
   }
 };
 
-connectDB();
+module.exports = connectDB;

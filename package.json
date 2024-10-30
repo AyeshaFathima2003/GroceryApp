@@ -7,6 +7,7 @@
     "start": "dotenv -e .env concurrently \"npm run start:backend\" \"npm run start:frontend\"",
     "start:backend": "cd ./grocery-app-server/ && npm start",
     "start:frontend": "cd ./grocery-app-interface/  && npm start",
+    "seed" : "cd ./grocery-app-server/ && node ./utils/seeder.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
