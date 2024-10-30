@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Node modules
 node_modules/
 grocery-app-server/node_modules/
@@ -18,3 +19,6 @@ build/
 
 # Miscellaneous files
 .DS_Store
+=======
+node_modules
+>>>>>>> main
