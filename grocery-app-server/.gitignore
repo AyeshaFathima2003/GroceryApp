@@ -1,0 +1,50 @@
+# Node modules
+/node_modules
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+
+# Debug
+.vscode/
+*.swp
+*.swo
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# npm package lock files
+package-lock.json
+yarn.lock
+
+# Temporary files
+*.tmp
+*.temp
+
+# Build files
+dist/
+build/
+
+# Coverage files
+coverage/
+
+# IDE files
+.idea/
+*.iml
+
+# PM2 log files
+pm2/logs/
+pm2/pids/
+pm2/pm2.pid
+pm2/pm2.log
+
+# Miscellaneous
+*.bak
+*.orig
