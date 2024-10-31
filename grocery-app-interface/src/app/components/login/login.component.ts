@@ -1,43 +1,35 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AuthService } from '../../services/auth.service';
-import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from '../../service/auth.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
   standalone: true,
+  imports: [FormsModule, HttpClientModule],
   templateUrl: './login.component.html',
-  styles: [`
-    .error { color: red; }
-    form { max-width: 300px; margin: auto; }
-    label { display: block; margin-bottom: 5px; }
-    input { width: 100%; margin-bottom: 10px; }
-  `],
-  providers: [AuthService],
-  imports: [ReactiveFormsModule, CommonModule]
+  styleUrls: ['./login.component.css'],
+  providers: [AuthService]
 })
-export class LoginComponent {
-  loginForm: FormGroup;
-  errorMessage: string = '';
 
-  constructor(private fb: FormBuilder, private authService: AuthService) {
-    this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]]
-    });
-  }
+export class LoginComponent {
+
+  email: string = '';
+  password: string = '';
+
+  constructor(private authService: AuthService) {}
 
   onSubmit() {
-    if (this.loginForm.valid) {
-      this.authService.login(this.loginForm.value).subscribe({
-        next: (response) => {
-          console.log('Login successful', response);
-        },
-        error: (error) => {
-          this.errorMessage = 'Login failed. Please check your credentials.';
-          console.error(error);
-        }
-      });
-    }
+    this.authService.login(this.email, this.password).subscribe(
+      response => {
+        console.log('Login successful', response);
+        // Handle successful login here (e.g., redirect to dashboard)
+      },
+      error => {
+        console.error('Login failed', error);
+        // Handle error here (e.g., show error message)
+      }
+    );
   }
 }

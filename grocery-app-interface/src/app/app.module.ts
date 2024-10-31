@@ -1,24 +1,24 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { FormsModule } from '@angular/forms'; // Import FormsModule
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CommonModule } from '@angular/common';
 import { LoginComponent } from '../app/components/login/login.component';
-import { ReactiveFormsModule } from '@angular/forms';
-
+import { HttpClientModule } from '@angular/common/http';
+import { AuthService } from './service/auth.service';
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent  // Add LoginComponent here
+    LoginComponent
   ],
   imports: [
     BrowserModule,
-    ReactiveFormsModule,
-    CommonModule
+    FormsModule, // Add FormsModule here
+    AppRoutingModule,
+    LoginComponent,
+    HttpClientModule
   ],
-  providers: [
-    provideHttpClient(withInterceptorsFromDi()),
-  ],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
