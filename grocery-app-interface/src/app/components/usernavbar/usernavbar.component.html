@@ -1,0 +1,14 @@
+<header>
+  <nav class="header-nav">
+    <h1>My App</h1>
+    
+    <!-- Menu Trigger Button -->
+    <button mat-button [matMenuTriggerFor]="menu">Menu</button>
+    
+    <!-- mat-menu Definition -->
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item routerLink="/login">Login</button>
+      <button mat-menu-item>Logout</button>
+    </mat-menu>
+  </nav>
+</header>

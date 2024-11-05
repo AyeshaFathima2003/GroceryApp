@@ -19,7 +19,11 @@ export class LoginComponent {
   password: string = '';
 
   constructor(private authService: AuthService) {}
-
+  ngOnInit() {
+    console.log('LoginComponent initialized');
+    // debugger;
+  }
+  
   onSubmit() {
     this.authService.login(this.email, this.password).subscribe(
       response => {
