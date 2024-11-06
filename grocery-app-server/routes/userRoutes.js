@@ -2,7 +2,7 @@
 const express = require('express');
 
 const router = express.Router();
-const { signup,login,getUserProfile,logoutUser,updateUserProfile,addUserAddress,getUserAddresses,getUserAddresses} = require('../controller/userController');
+const { signup,login,getUserProfile,logoutUser,updateUserProfile,addUserAddress,getUserAddresses, addToWishlist} = require('../controller/userController');
 
 const{verifyToken}=require('../utils/verifyToken');
 
