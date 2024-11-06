@@ -1,0 +1,40 @@
+<div class="signup-container">
+    <h2>Sign Up for Grocery Shop</h2>
+    <form (ngSubmit)="submitForm()" #signupForm="ngForm">
+      <!-- Username -->
+      <div class="form-group">
+        <label>Username</label>
+        <input
+          type="text"
+          name="username"
+          [(ngModel)]="user.username"
+          required
+          #username="ngModel"
+        />
+        <span *ngIf="username.invalid && username.touched" class="error">
+          Username is required
+        </span>
+      </div>
+  
+      <!-- Email -->
+      <div class="form-group">
+        <label>Email</label>
+        <input
+          type="email"
+          name="email"
+          [(ngModel)]="user.email"
+          required
+          #email="ngModel"
+        />
+        <span *ngIf="email.invalid && email.touched" class="error">
+          Email is required
+        </span>
+        <span *ngIf="email.errors?.email && email.touched" class="error">
+          Invalid email format
+        </span>
+      </div>
+  
+      <!-- Password -->
+      <div class="form-group">
+        <label
+  
