@@ -9,7 +9,7 @@ import { RouterModule } from '@angular/router'; // Import RouterModule here
 import { LoginComponent } from '../app/components/login/login.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SignupComponent } from '../app/components/signup/signup.component';
+import { SignupComponent } from './components/signup/signup.component';
 import { UserfooterComponent } from './components/userfooter/userfooter.component';
 import { UsernavbarComponent } from './components/usernavbar/usernavbar.component';
 import { AuthService } from './service/auth.service';
