@@ -2,7 +2,7 @@
 const express = require('express');
 
 const router = express.Router();
-const { signup,login,getUserProfile,logoutUser,updateUserProfile} = require('../controller/userController');
+const { signup,login,getUserProfile,logoutUser,updateUserProfile,addUserAddress,getUserAddresses,getUserAddresses} = require('../controller/userController');
 
 const{verifyToken}=require('../utils/verifyToken');
 
@@ -12,5 +12,9 @@ router.post('/login',login)
 
 router.get('/profile', getUserProfile);
 router.post('/logout', logoutUser);
-router.put('/update',updateUserProfile)
+router.put('/update',updateUserProfile);
+router.post('/address', addUserAddress);
+router.get('/addresses', getUserAddresses);
+router.post('/wishlist', addToWishlist);
+
 module.exports = router;

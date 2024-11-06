@@ -121,4 +121,81 @@ const updateUserProfile = async (req, res) => {
     }
 };
 
-module.exports = { signup, login, getUserProfile, logoutUser, updateUserProfile };
+
+// Controller function to add an address to a user's profile
+const addUserAddress = async (req, res) => {
+    try {
+        const userId = req.body.userId; // Get the userId from JWT payload
+        const { street, city, state, zip, country } = req.body;
+
+        // Find the user and push the new address into the addresses array
+        const updatedUser = await User.findByIdAndUpdate(
+            userId,
+            {
+                $push: {
+                    addresses: { street, city, state, zip, country }
+                }
+            },
+            { new: true, runValidators: true } // Return updated document & validate schema
+        );
+
+        if (!updatedUser) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        res.status(200).json({ message: 'Address added successfully', user: updatedUser });
+    } catch (error) {
+        console.error('Add Address Error:', error);
+        res.status(500).json({ message: 'Error adding address', error: error.message || error });
+    }
+};
+
+const getUserAddresses = async (req, res) => {
+    try {
+        const userId = req.query.userId; // Extract userId from JWT payload
+        console.log('User ID:', userId);
+        // Find the user by ID and select only the addresses field
+        const user = await User.findById(userId).select('addresses');
+
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        res.status(200).json({ addresses: user.addresses });
+    } catch (error) {
+        console.error('Get Addresses Error:', error);
+        res.status(500).json({ message: 'Error fetching addresses', error: error.message || error });
+    }
+};
+
+const addToWishlist = async (req, res) => {
+    try {
+        const userId = req.user.userId; // Get the userId from the JWT payload
+        const { productId } = req.body;
+
+        // Update the user's wishlist to add the product if it's not already there
+        const updatedUser = await User.findByIdAndUpdate(
+            userId,
+            { $addToSet: { 'wishlist.products': productId } }, // Only add if it doesn't exist
+            { new: true }
+        ).select('wishlist');
+
+        if (!updatedUser) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        res.status(200).json({ message: 'Product added to wishlist', wishlist: updatedUser.wishlist });
+    } catch (error) {
+        console.error('Add to Wishlist Error:', error);
+        res.status(500).json({ message: 'Error adding to wishlist', error: error.message || error });
+    }
+};
+
+module.exports = { addToWishlist, getUserAddresses, addUserAddress, signup, login, getUserProfile, logoutUser, updateUserProfile };
+
+
+
+
+ 
+
+
