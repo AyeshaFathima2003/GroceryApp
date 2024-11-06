@@ -1,27 +1,36 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './signup.component.html',
-  styleUrl: './signup.component.css'
+  styleUrls: ['./signup.component.css']
 })
 export class SignupComponent {
-    user = {
-      username: '',
-      email: '',
-      password: '',
-    };
-  
-    message: string = '';
-  
-    submitForm() {
-      // Check if the form is valid
-      if (this.user.username && this.user.email && this.user.password.length >= 6) {
-        this.message = `Signup successful! Welcome, ${this.user.username}`;
-        // In a real-world scenario, send data to the server here
-  
-      }
+  signupForm: FormGroup;
+  submitted = false;
+
+  constructor(private formBuilder: FormBuilder) {
+    this.signupForm = this.formBuilder.group({
+      username: ['', [Validators.required, Validators.minLength(3)]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]]
+    });
+  }
+
+  get f() { return this.signupForm.controls; }
+
+  onSubmit() {
+    this.submitted = true;
+
+    if (this.signupForm.invalid) {
+      return;
     }
+
+    // Handle signup logic here (e.g., API call)
+    console.log('Signup successful', this.signupForm.value);
+  }
 }
