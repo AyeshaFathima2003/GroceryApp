@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { SignupComponent } from './components/signup/signup.component';
 import { UserfooterComponent } from './components/userfooter/userfooter.component';
 import { UsernavbarComponent } from './components/usernavbar/usernavbar.component';
 
@@ -9,7 +8,7 @@ import { UsernavbarComponent } from './components/usernavbar/usernavbar.componen
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, UserfooterComponent, UsernavbarComponent, RouterLink, RouterLinkActive,SignupComponent],
+  imports: [RouterOutlet, UserfooterComponent, UsernavbarComponent, RouterLink, RouterLinkActive],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

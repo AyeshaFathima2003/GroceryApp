@@ -13,6 +13,11 @@ export class SignupComponent {
   signupForm: FormGroup;
   submitted = false;
 
+  ngOnInit() {
+    console.log('Signup initialized');
+    debugger;
+  }
+
   constructor(private formBuilder: FormBuilder) {
     this.signupForm = this.formBuilder.group({
       username: ['', [Validators.required, Validators.minLength(3)]],
