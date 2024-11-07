@@ -6,22 +6,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router'; // Import RouterModule here
-import { LoginComponent } from '../app/components/login/login.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SignupComponent } from './components/signup/signup.component';
-import { UserfooterComponent } from './components/userfooter/userfooter.component';
-import { UsernavbarComponent } from './components/usernavbar/usernavbar.component';
-import { AuthService } from './service/auth.service';
+import { AuthService } from './core/services/auth.service';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    UserfooterComponent,
-    UsernavbarComponent,
-    SignupComponent,
   ],
   imports: [
     BrowserModule,

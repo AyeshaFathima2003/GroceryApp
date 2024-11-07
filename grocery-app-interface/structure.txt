@@ -1,0 +1,53 @@
+grocery-app/
+│
+├── e2e/                       # End-to-end tests
+│
+├── src/
+│   ├── app/
+│   │   ├── core/              # Core module (singleton services and guards)
+│   │   │   ├── guards/        # Route guards (e.g., AdminGuard, AuthGuard)
+│   │   │   ├── interceptors/  # HTTP interceptors (e.g., AuthInterceptor)
+│   │   │   ├── models/        # Reusable models/interfaces (e.g., User, Product)
+│   │   │   ├── services/      # Core services (e.g., AuthService, ApiService)
+│   │   │   ├── core.module.ts # Core module
+│   │   │   └── index.ts       # Export all core functionalities
+│   │   │
+│   │   ├── shared/            # Shared module (common components, pipes, directives)
+│   │   │   ├── components/    # Shared components (e.g., Navbar, Footer)
+│   │   │   ├── pipes/         # Shared pipes (e.g., PricePipe, DateFormatPipe)
+│   │   │   ├── directives/    # Shared directives (e.g., HighlightDirective)
+│   │   │   ├── shared.module.ts # Shared module
+│   │   │   └── index.ts       # Export all shared functionalities
+│   │   │
+│   │   ├── features/          # Feature modules
+│   │   │   ├── admin/         # Admin module
+│   │   │   │   ├── dashboard/ # Admin dashboard
+│   │   │   │   ├── products/  # Product management (CRUD for admin)
+│   │   │   │   ├── orders/    # Order management for admin
+│   │   │   │   └── admin-routing.module.ts # Admin-specific routes
+│   │   │   ├── customer/      # Customer module
+│   │   │   │   ├── home/      # Home page for customers
+│   │   │   │   ├── cart/      # Shopping cart management
+│   │   │   │   ├── checkout/  # Checkout process
+│   │   │   │   ├── orders/    # Order history for customers
+│   │   │   │   └── customer-routing.module.ts # Customer-specific routes
+│   │   │
+│   │   ├── auth/              # Authentication module (login, register)
+│   │   │   ├── login/         # Login component
+│   │   │   ├── register/      # Register component
+│   │   │   ├── auth-routing.module.ts # Auth-specific routes
+│   │   │   ├── auth.module.ts # Auth module
+│   │   │
+│   │   ├── app-routing.module.ts # Main app routes (lazy load feature modules)
+│   │   ├── app.component.ts      # Root component
+│   │   └── app.module.ts         # Root module
+│   │
+│   ├── assets/               # Static assets (e.g., images, icons)
+│   │
+│   ├── environments/         # Environment configuration (e.g., API endpoints)
+│   │   ├── environment.ts    # Development environment
+│   │   └── environment.prod.ts # Production environment
+│
+├── angular.json              # Angular CLI configuration
+├── package.json              # Project dependencies and scripts
+└── README.md                 # Project documentation

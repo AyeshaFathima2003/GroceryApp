@@ -22,4 +22,23 @@ export class AuthService {
 
     return this.http.post<any>(this.apiUrl, body, { headers });
   }
+
+  isAuthenticated(): boolean {
+    // Implement logic to check if the user is authenticated
+    // For example, check if a JWT token exists in localStorage
+    return !!localStorage
+    
+    .getItem('token');
+  }
+
+  getUserRole(): string | null {
+    // Retrieve role from local storage or wherever it’s stored
+    return localStorage.getItem('role'); // e.g., 'admin' or 'user'
+  }
+
+  // Example method for setting role (e.g., on login)
+  setUserRole(role: string) {
+    localStorage.setItem('role', role);
+
+  }
 }
