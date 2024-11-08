@@ -9,6 +9,8 @@ import { RouterModule } from '@angular/router'; // Import RouterModule here
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthService } from './core/services/auth.service';
+import { AdminModule } from './features/admin/admin.module';
+import { UserModule } from './features/user/user.module';
 
 
 @NgModule({
@@ -25,6 +27,8 @@ import { AuthService } from './core/services/auth.service';
     RouterModule,
     ReactiveFormsModule,
     CommonModule,
+    AdminModule,
+    UserModule
   ],
   providers: [AuthService, provideHttpClient(withFetch())],
   bootstrap: [AppComponent]
