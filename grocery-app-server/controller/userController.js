@@ -2,6 +2,7 @@
 const User = require('../model/user');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const{verifyToken}=require('../middleware/verifyToken');
 
 
 const signup = async (req, res) => {
@@ -191,7 +192,15 @@ const addToWishlist = async (req, res) => {
     }
 };
 
-module.exports = { addToWishlist, getUserAddresses, addUserAddress, signup, login, getUserProfile, logoutUser, updateUserProfile };
+const verifyTokenAPI = async (req, res) => {
+    try {
+        res.status(200).json({ message: 'Token is valid' , user: req.user });
+    } catch (error) {
+        res.status(500).json({ message: 'Error verifying token', error });
+    }
+}
+
+module.exports = { verifyTokenAPI, addToWishlist, getUserAddresses, addUserAddress, signup, login, getUserProfile, logoutUser, updateUserProfile };
 
 
 
