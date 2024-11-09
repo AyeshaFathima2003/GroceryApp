@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 const User = require('../model/user');
-const Product = require('../model/product');
-const Order = require('../model/order');
-const Payment = require('../model/order'); // Fixed import for Payment model
+const Product = require('../model/Product');
+const Order = require('../model/Order');
+const Payment = require('../model/Order'); // Fixed import for Payment model
 
 const connectDb = require('../config/db');
 

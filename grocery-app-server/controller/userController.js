@@ -360,70 +360,7 @@ const getCart = async (req, res) => {
  // Adjust the path if necessary
 
 
-const placeOrder = async (req, res) => {
-    try {
-        const userId = req.body.userId; // Extract userId from JWT payload
-
-        // Find the user and populate product details in the cart
-        const user = await User.findById(userId).populate('cart.items.productId');
-
-        if (!user || !user.cart || !user.cart.items.length) {
-            return res.status(400).json({ message: 'Cart is empty' });
-        }
-
-        // Calculate total amount
-        let totalAmount = 0;
-        const orderItems = user.cart.items.map((item) => {
-            totalAmount += item.productId.price * item.quantity;
-            return {
-                productId: item.productId._id,
-                quantity: item.quantity,
-                price: item.productId.price,
-            };
-        });
-
-        // Create new order
-        const newOrder = new Order({
-            userId,
-            items: orderItems,
-            totalAmount,
-            status: 'pending',  // Default status
-        });
-
-        await newOrder.save();
-
-        // Clear the user's cart
-        user.cart.items = [];
-        await user.save();
-
-        res.status(201).json({ message: 'Order placed successfully', order: newOrder });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Error placing order', error });
-    }
-};
-
-const getUserOrders = async (req, res) => {
-    try {
-        const userId = req.user.userId; // Extract userId from JWT payload
-
-        // Find all orders for the user
-        const orders = await Order.find({ userId }).populate('items.productId'); // Populating to show product details
-
-        if (!orders || orders.length === 0) {
-            return res.status(404).json({ message: 'No orders found for this user' });
-        }
-
-        res.status(200).json({ message: 'Orders retrieved successfully', orders });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Error retrieving orders', error });
-    }
-};
-
-
-
-module.exports = { getUserOrders,getWishlist, removeFromWishlist, addToWishlist, getUserAddresses, addUserAddress, signup, login, getUserProfile, logoutUser, updateUserProfile ,addToCart,updateCart,getCart,placeOrder};
+module.exports = {getWishlist, removeFromWishlist, addToWishlist, getUserAddresses, addUserAddress, signup, login, getUserProfile, logoutUser, updateUserProfile ,addToCart,updateCart,getCart};
 
 
 
