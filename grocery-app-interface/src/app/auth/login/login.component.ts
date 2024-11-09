@@ -18,7 +18,7 @@ export class LoginComponent {
   email: string = '';
   password: string = '';
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
   ngOnInit() {
     console.log('LoginComponent initialized');
     // debugger;
@@ -28,7 +28,13 @@ export class LoginComponent {
     this.authService.login(this.email, this.password).subscribe(
       response => {
         console.log('Login successful', response);
-        // Handle successful login here (e.g., redirect to dashboard)
+        console.log('Token:', response.token);
+        localStorage.setItem('token', response.token);
+        if(response.user.role === 'admin') {
+          this.router.navigate(['/admin/admindashboard']);
+        } else if(response.user.role === 'user') {
+          this.router.navigate(['/user/userdashboard']);
+        }
       },
       error => {
         console.error('Login failed', error);
