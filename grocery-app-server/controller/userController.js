@@ -367,8 +367,6 @@ const getCart = async (req, res) => {
 };
 
  // Adjust the path if necessary
-
-
 const placeOrder = async (req, res) => {
     try {
         const userId = req.body.userId; // Extract userId from JWT payload
@@ -433,7 +431,6 @@ const getUserOrders = async (req, res) => {
 
 
 module.exports = {verifyTokenAPI,  getUserOrders,getWishlist, removeFromWishlist, addToWishlist, getUserAddresses, addUserAddress, signup, login, getUserProfile, logoutUser, updateUserProfile ,addToCart,updateCart,getCart,placeOrder};
-
 
 
 
