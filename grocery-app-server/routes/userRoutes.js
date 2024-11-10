@@ -9,7 +9,6 @@ const {verifyTokenAPI,signup,login,getUserProfile,logoutUser,updateUserProfile,a
 // Signup route
 router.post('/signup', signup);
 router.post('/login',login)
-
 router.get('/profile', getUserProfile);
 router.post('/logout', logoutUser);
 router.put('/update',updateUserProfile);
