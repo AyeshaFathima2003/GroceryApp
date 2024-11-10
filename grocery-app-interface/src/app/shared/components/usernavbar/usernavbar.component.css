@@ -1,81 +1,38 @@
-Reset for body and html
-body, html {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  overflow: hidden;
-}
-
-/* Header styling to make it fixed at the top */
-.header-nav {
+/* Styles for the header */
+header {
+  background-color: #3f51b5;
+  color: white;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #4CAF50;
-  color: white;
-  padding: 0 20px;
-  height: 64px;
-  position: fixed;
-  width: 100%;
-  top: 0;
+  padding: 0 16px;
   z-index: 1000;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-/* Styles the sidenav container to start below the header */
+.header-nav {
+  display: flex; /* Use flexbox layout */
+  justify-content: space-between; /* Distribute space between h1 and button */
+  align-items: center; /* Vertically center the items */
+  padding: 0 16px; /* Optional padding */
+  background-color: #f8f8f8; /* Optional background color */
+}
+
+/* Sidenav and content container */
 .sidenav-container {
-  height: calc(100vh - 64px);
-  margin-top: 64px;
+  height: 100vh;
 }
 
-/* mat-sidenav width for desktop and overlay behavior for mobile */
 mat-sidenav {
   width: 250px;
   background-color: #fff;
 }
 
-/* mat-nav-list and links styling */
-mat-nav-list {
-  padding: 0;
+mat-sidenav-content {
+  padding: 20px;
 }
 
-mat-nav-list a {
-  font-size: 18px;
-  padding: 15px 20px;
-  color: #333;
-  text-decoration: none;
-}
-
-mat-nav-list a:hover {
-  background-color: #f0f0f0;
-}
-
-mat-nav-list a[aria-current="page"] {
-  background-color: #ddd;
+/* Highlight active link */
+mat-nav-list a.active {
+  background-color: #e0e0e0;
   font-weight: bold;
-}
-
-/* Responsive behavior for small screens */
-@media (max-width: 768px) {
-  .sidenav-container {
-    margin-top: 0;
-  }
-
-  mat-sidenav {
-    width: 100vw;
-  }
-  
-  mat-sidenav[mode="side"] {
-    mode: "over"; /* Switch to overlay mode for mobile */
-  }
-
-  .header-nav {
-    height: 56px; /* Reduce height for smaller screens */
-    padding: 0 15px;
-  }
-
-  mat-nav-list a {
-    font-size: 16px; /* Smaller font for smaller screens */
-    padding: 12px 20px;
-  }
 }

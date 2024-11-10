@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken'); // Ensure jwt is imported
 
 const verifyToken = (req, res, next) => {
     const token = req.header('Authorization'); 
+    console.log(token);
     if (!token) {
         return res.status(401).json({ message: 'Access denied, no token provided' });
     }
@@ -11,6 +12,7 @@ const verifyToken = (req, res, next) => {
         req.user = decoded; // Attach user information to the request object
         next(); // Move to the next middleware/route handler
     } catch (error) {
+        console.log(error);
         res.status(400).json({ message: 'Invalid token' });
     }
 };

@@ -1,9 +1,7 @@
 const express = require('express');
 
 const router = express.Router();
-
-
-
+const {verifyToken} = require('../middleware/verifyToken');
 const {getAllProducts,getProductById,createProduct,updateProduct,deleteProduct,searchProducts,addProductReview, getProductReviews,filterProducts, getTopRatedProducts} = require('../controller/productController');
 // Get all products
 
