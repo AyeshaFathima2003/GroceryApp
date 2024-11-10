@@ -12,7 +12,6 @@ import { AuthService } from './core/services/auth.service';
 import { AdminModule } from './features/admin/admin.module';
 import { UserModule } from './features/user/user.module';
 
-
 @NgModule({
   declarations: [
     AppComponent,
