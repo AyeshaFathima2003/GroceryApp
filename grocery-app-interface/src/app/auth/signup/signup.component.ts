@@ -12,7 +12,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 export class SignupComponent {
   signupForm: FormGroup;
   submitted = false;
-
+  imageUrl: string = '../../assets/signup.png';
   ngOnInit() {
     console.log('Signup initialized');
     debugger;
