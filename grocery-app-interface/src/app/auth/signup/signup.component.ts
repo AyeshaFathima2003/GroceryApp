@@ -1,21 +1,33 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule],
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent {
+
+  name: string = '';
+  phone: string = '';
+  email: string = '';
+  password: string = '';
+  street: string = '';
+  city: string = '';
+  state: string = '';
+  country: string = '';
+  pin: string = '';
+  logo: string = '../../assets/logo.png';
+  card: string = '../../assets/signup.png';
+
   signupForm: FormGroup;
   submitted = false;
   imageUrl: string = '../../assets/signup.png';
   ngOnInit() {
     console.log('Signup initialized');
-    debugger;
   }
 
   constructor(private formBuilder: FormBuilder) {

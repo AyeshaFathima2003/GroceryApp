@@ -1,56 +1,43 @@
-<div class="signup-container">
-  <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
-    <h2>Signup</h2>
-
-    <div class="form-group">
-      <label for="username">Username</label>
-      <input
-        type="text"
-        id="username"
-        formControlName="username"
-        class="form-control"
-        [ngClass]="{ 'is-invalid': submitted && f['username'].errors }"
-      />
-      <div *ngIf="submitted && f['username'].errors" class="invalid-feedback">
-        <div *ngIf="f['username'].errors['required']">Username is required.</div>
-        <div *ngIf="f['username'].errors['minlength']">
-          Username must be at least 3 characters.
-        </div>
+<div class="container">
+  <div class="left-side">
+      <!-- Background Illustration and Text -->
+      <div class="left-content">
+          <img [attr.src]="card" alt="Illustration">
       </div>
-    </div>
-
-    <div class="form-group">
-      <label for="email">Email</label>
-      <input
-        type="email"
-        id="email"
-        formControlName="email"
-        class="form-control"
-        [ngClass]="{ 'is-invalid': submitted && f['email'].errors }"
-      />
-      <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
-        <div *ngIf="f['email'].errors['required']">Email is required.</div>
-        <div *ngIf="f['email'].errors['email']">Enter a valid email address.</div>
+  </div>
+  <div class="right-side">
+      <div class="signup-container">
+          <!-- Logo Section -->
+          <div class="form-header">
+            <img [attr.src]="logo" alt="Logo">
+              <h2>Sign Up</h2>
+          </div>
+          
+          <!-- Signup Form -->
+          <form (ngSubmit)="onSubmit()" #signupForm="ngForm">
+              <div class="form-group">
+                  <input type="text" id="name" name="name" placeholder="Name" [(ngModel)]="name" required>
+                  <input type="text" id="phone" name="phone" placeholder="Phone No" [(ngModel)]="phone" required>
+              </div>
+              <input type="email" id="email" name="email" placeholder="Email" [(ngModel)]="email" required>
+              <input type="password" id="password" name="password" placeholder="Password" [(ngModel)]="password" required>
+              
+              <p>Address</p>
+              <input type="text" id="street" name="street" placeholder="Street" [(ngModel)]="street" required>
+              
+              <div class="form-group">
+                  <input type="text" id="city" name="city" placeholder="City" [(ngModel)]="city" required>
+                  <input type="text" id="state" name="state" placeholder="State" [(ngModel)]="state" required>
+              </div>
+              
+              <div class="form-group">
+                  <input type="text" id="country" name="country" placeholder="Country" [(ngModel)]="country" required>
+                  <input type="text" id="pin" name="pin" placeholder="Pin" [(ngModel)]="pin" required>
+              </div>
+              
+              <button type="submit" [disabled]="!signupForm.valid">SIGN UP</button>
+              <p class="login-link">Don’t have an account? <a href="#">Sign up</a></p>
+          </form>
       </div>
-    </div>
-
-    <div class="form-group">
-      <label for="password">Password</label>
-      <input
-        type="password"
-        id="password"
-        formControlName="password"
-        class="form-control"
-        [ngClass]="{ 'is-invalid': submitted && f['password'].errors }"
-      />
-      <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
-        <div *ngIf="f['password'].errors['required']">Password is required.</div>
-        <div *ngIf="f['password'].errors['minlength']">
-          Password must be at least 6 characters.
-        </div>
-      </div>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Sign Up</button>
-  </form>
+  </div>
 </div>
