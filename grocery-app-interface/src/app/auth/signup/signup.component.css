@@ -16,27 +16,25 @@ body, html {
 
 .left-side {
   width: 50%;
-  background-color: #4CAF50;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: white;
-  text-align: center;
-  padding: 20px;
+  /* background-image: url('path-to-your-image.png'); Set your image here */
+  background-size: cover; /* Ensures the image covers the entire container */
+  background-position: center; /* Keeps the image centered */
+  background-repeat: no-repeat; /* Prevents the image from repeating */
+  background-color: #4CAF50; /* Fallback color in case image doesn't load */
 }
 
-.left-content h1 {
+.left-content {
+  display: flex;
+  color: #ffffff; /* Text color for contrast */
   font-size: 24px;
   font-weight: bold;
-  margin-top: 20px;
+  text-align: center;
+  max-width: 80%; /* Controls the width of the text within the container */
 }
 
-.left-content img {
-  max-width: 60%; /* Adjust this value to control width */
-  max-height: 60%; /* Adjust this value to control height */
-  width: auto;
-  height: auto;
-}
 
 .signup-image {
   max-width: 50%;
