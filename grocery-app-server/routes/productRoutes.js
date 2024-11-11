@@ -13,7 +13,7 @@ router.delete('/deleteproduct', deleteProduct);
 router.get('/searchproduct', searchProducts);
 router.post('/addproductreview', addProductReview);
 router.get('/getproductreview', getProductReviews);
-router.get('/filterproduct', filterProducts);
+router.post('/filterproduct', filterProducts);
 router.get('/gettopratedproducts', getTopRatedProducts);
 
 

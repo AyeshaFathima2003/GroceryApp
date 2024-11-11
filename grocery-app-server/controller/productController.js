@@ -54,8 +54,8 @@ const createProduct = async (req, res) => {
 // Update product details
 const updateProduct = async (req, res) => {
     try {
-        const productId = req.params.id;
-        const { name, description, price, category, stock, imageUrl } = req.body;
+        //const productId = req.params.id;
+        const { name, productId,description, price, category, stock, imageUrl } = req.body;
 
         // Find the product by ID and update it
         const updatedProduct = await Product.findByIdAndUpdate(
