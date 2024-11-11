@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:5000/api/user/login';
+
+  private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
 
@@ -15,13 +17,27 @@ export class AuthService {
       email: email,
       password: password
     };
-
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
-
-    return this.http.post<any>(this.apiUrl, body, { headers });
+    return this.http.post<any>(`${this.apiUrl}/user/login`, body, { headers });
   }
+
+  signup(payload: any): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+  
+    console.log('Sending signup request with payload:', payload);  // Debug log
+  
+    return this.http.post<any>(`${this.apiUrl}/user/signup`, payload, { headers }).pipe(
+      catchError(error => {
+        console.error('Signup error in AuthService:', error);
+        return throwError(error);
+      })
+    );
+  }
+  
 
   isAuthenticated(): boolean {
     // Implement logic to check if the user is authenticated
