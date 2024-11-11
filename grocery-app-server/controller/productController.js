@@ -1,6 +1,7 @@
 // controllers/productController.js
 
 const Product = require('../model/Product');
+const User = require('../model/user');
 const {verifyToken} = require('../middleware/verifyToken');
 
 // Get all products
@@ -76,7 +77,7 @@ const updateProduct = async (req, res) => {
 // Delete a product
 const deleteProduct = async (req, res) => {
     try {
-        const productId = req.params.id;
+        const productId = req.query.id;
 
         // Find the product by ID and delete it
         const deletedProduct = await Product.findByIdAndDelete(productId);
@@ -94,8 +95,8 @@ const deleteProduct = async (req, res) => {
 // Search products by name and category
 const searchProducts = async (req, res) => {
     try {
-        const query = req.query.q; // Search query from query params
-        const products = await Product.find({ $text: { $search: query } });
+        const query = req.query.productId; // Search query from query params
+        const products = await Product.find({_id: query});
         res.status(200).json({ products });
     } catch (error) {
         res.status(500).json({ message: 'Error searching products', error });
@@ -119,46 +120,63 @@ const filterProducts = async (req, res) => {
     }
 };
 
-// Add a product review
 const addProductReview = async (req, res) => {
     try {
-        const productId = req.params.id;
-        const { userId, rating, comment } = req.body;
+        const { userId, productId, rating, comment } = req.body;
 
+        // Check if the product exists
         const product = await Product.findById(productId);
         if (!product) {
             return res.status(404).json({ message: 'Product not found' });
         }
 
-        // Add review to the product
+        // Check if user exists
+        const userExists = await User.findById(userId);
+        if (!userExists) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        // Define the review with productId included
         const review = {
             userId,
+            productId,  // Include productId here
             rating,
             comment,
             date: new Date(),
         };
+
+        // Add the review to the product's reviews array
         product.reviews.push(review);
+        
+        // Save the updated product
         await product.save();
 
         res.status(200).json({ message: 'Review added successfully', product });
     } catch (error) {
-        res.status(500).json({ message: 'Error adding review', error });
+        console.error('Error adding review:', error);
+        res.status(500).json({ message: 'Error adding review', error: error.message });
     }
 };
 
 // Get product reviews
 const getProductReviews = async (req, res) => {
     try {
-        const productId = req.params.id;
+        const productId = req.query.productId;
+        
+        console.log('Received productId:', productId);  // Add this line to debug
+
         const product = await Product.findById(productId).populate('reviews.userId', 'name email');
+        
         if (!product) {
             return res.status(404).json({ message: 'Product not found' });
         }
+
         res.status(200).json({ reviews: product.reviews });
     } catch (error) {
         res.status(500).json({ message: 'Error retrieving reviews', error });
     }
 };
+
 
 // Get the most popular products based on review ratings (Optional)
 const getTopRatedProducts = async (req, res) => {
@@ -169,11 +187,15 @@ const getTopRatedProducts = async (req, res) => {
             { $sort: { avgRating: -1 } },
             { $limit: 10 }
         ]);
+
+        console.log(products);  // Log the products to see the output
         res.status(200).json({ products });
     } catch (error) {
+        console.error(error);  // Log the error
         res.status(500).json({ message: 'Error retrieving top-rated products', error });
     }
 };
+
 
 module.exports = {
     getAllProducts,

@@ -227,7 +227,7 @@ const removeFromWishlist = async (req, res) => {
 
 const getWishlist = async (req, res) => {
     try {
-        const userId = req.query.userId; // Assuming userId is set in the authentication middleware
+        const userId = req.user.userId; // Assuming userId is set in the authentication middleware
         
         // Find the user and populate wishlist products
         const user = await User.findById(userId).populate('wishlist.products');

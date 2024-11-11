@@ -11,7 +11,8 @@ import { AppComponent } from './app.component';
 import { AuthService } from './core/services/auth.service';
 import { AdminModule } from './features/admin/admin.module';
 import { UserModule } from './features/user/user.module';
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import {  AuthInterceptor } from './core/interceptor/auth.interceptor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +30,14 @@ import { UserModule } from './features/user/user.module';
     AdminModule,
     UserModule
   ],
-  providers: [AuthService, provideHttpClient(withFetch())],
+  providers: [
+    AuthService, provideHttpClient(withFetch()),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

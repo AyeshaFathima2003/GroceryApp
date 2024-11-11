@@ -16,7 +16,7 @@ router.post('/address', addUserAddress);
 router.get('/addresses', getUserAddresses);
 router.post('/wishlist', addToWishlist);
 router.delete('/wishlist', removeFromWishlist);
-router.get('/wishlist',getWishlist);
+router.get('/wishlist', verifyToken ,getWishlist);
 router.post('/cartadd', addToCart);
 router.put('/updatecart',updateCart);
 router.get('/getcart', getCart);

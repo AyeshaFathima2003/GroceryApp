@@ -8,12 +8,13 @@ const {getAllProducts,getProductById,createProduct,updateProduct,deleteProduct,s
 router.get('/allproducts', getAllProducts);
 router.get('/productid',getProductById)
 router.post('/createproduct',createProduct);
-router.post('/deleteproduct', deleteProduct);
-router.post('/searchproduct', searchProducts);
+router.put('/updateproduct', updateProduct);
+router.delete('/deleteproduct', deleteProduct);
+router.get('/searchproduct', searchProducts);
 router.post('/addproductreview', addProductReview);
-router.post('/getproductreview', getProductReviews);
-router.post('/filterproduct', filterProducts);
-router.post('/gettopratedproducts', getTopRatedProducts);
+router.get('/getproductreview', getProductReviews);
+router.get('/filterproduct', filterProducts);
+router.get('/gettopratedproducts', getTopRatedProducts);
 
 
 module.exports = router;
