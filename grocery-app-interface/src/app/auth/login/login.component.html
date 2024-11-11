@@ -1,4 +1,5 @@
-    <div class="container">
+ <div class="wrapper">
+     <div class="container">
         <div class="left-panel">
             <img [attr.src]="card" alt="Illustration"> <!-- Replace 'login.png' with the path to your image -->
             <!-- <h2>We bring the store to your door</h2> -->
@@ -22,7 +23,8 @@
                     
                     <button type="submit" [disabled]="!loginForm.valid">Login</button>
                 </form>
-                <p>Don’t have an account? <a href="#">Sign up</a></p>
+                <p>Don’t have an account? <a [routerLink]="'/auth/signup'">Sign up</a></p>
             </div>
         </div>
     </div>
+</div>  
