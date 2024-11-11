@@ -1,6 +1,7 @@
 // controllers/productController.js
 
 const Product = require('../model/Product');
+const {verifyToken} = require('../middleware/verifyToken');
 
 // Get all products
 const getAllProducts = async (req, res) => {

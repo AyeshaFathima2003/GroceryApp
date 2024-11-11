@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors'); // Import cors
 const userRoutes = require('./routes/userRoutes');
 const orderRoutes = require('./routes/orderRoutes');
+const productRoutes = require('./routes/productRoutes');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 connectDB();
@@ -18,6 +19,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/api/user', userRoutes);
 app.use('/api/order', orderRoutes);
+app.use('/api/product',productRoutes);
 
 app.use(cors({
     origin: 'http://localhost:4200', // Replace with the URL of your frontend

@@ -1,8 +1,9 @@
+import { HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
-import { HttpClientModule } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-login',
@@ -10,13 +11,15 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [FormsModule, HttpClientModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  providers: [AuthService]
+  providers: [AuthService],
 })
 
 export class LoginComponent {
 
   email: string = '';
   password: string = '';
+  logo: string = '../../assets/logo.png';
+  card: string = '../../assets/signup.png';
 
   constructor(private authService: AuthService, private router: Router) {}
   ngOnInit() {
@@ -33,7 +36,7 @@ export class LoginComponent {
         if(response.user.role === 'admin') {
           this.router.navigate(['/admin/admindashboard']);
         } else if(response.user.role === 'user') {
-          this.router.navigate(['/user/userdashboard']);
+          this.router.navigate(['/user/home']);
         }
       },
       error => {
