@@ -23,6 +23,10 @@ export class AllproductsviewComponent implements OnInit {
     );
   }
 
+  navigateToCreateProduct(): void {
+    this.router.navigate(['/admin/home/createproduct']);
+  }
+
   viewProductDetails(productId: string): void {
     // Navigate to the ProductDetailsComponent with the product ID
     this.router.navigate(['/admin/home/product-details', productId]);

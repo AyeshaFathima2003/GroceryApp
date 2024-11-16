@@ -1,5 +1,7 @@
 <div class="product-list">
   <h2>All Products</h2>
+  <button (click)="navigateToCreateProduct()" class="create-product-button">
+
   <div *ngIf="products.length === 0">No products available.</div>
   <div *ngFor="let product of products" class="product-card">
     <h3>{{ product.name }}</h3>
