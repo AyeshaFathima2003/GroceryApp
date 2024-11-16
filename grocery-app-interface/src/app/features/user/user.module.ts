@@ -5,14 +5,22 @@ import { UserRoutingModule } from './user-routing.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { UserserviceService } from './services/userservice.service';
 import { AuthInterceptor } from '../../core/interceptor/auth.interceptor';
+import { ProductDetailsComponent } from './components/product-details/product-details.component';
+import { WishlistComponent } from './components/wishlist/wishlist.component';
+import { CartComponent } from './components/cart/cart.component';
+import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
-    AllproductsviewComponent
+    AllproductsviewComponent,
+    ProductDetailsComponent,
+    WishlistComponent,
+    CartComponent
   ],
   imports: [
     CommonModule,
     UserRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [
     UserserviceService,

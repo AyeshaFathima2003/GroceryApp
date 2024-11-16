@@ -14,12 +14,11 @@ router.post('/logout', logoutUser);
 router.put('/update',updateUserProfile);
 router.post('/address', addUserAddress);
 router.get('/addresses', getUserAddresses);
-router.post('/wishlist', addToWishlist);
-router.delete('/wishlist', removeFromWishlist);
+router.post('/wishlist', verifyToken, addToWishlist);
+router.delete('/wishlist',verifyToken, removeFromWishlist);
 router.get('/wishlist', verifyToken ,getWishlist);
-router.post('/cartadd', addToCart);
-router.put('/updatecart',updateCart);
-router.get('/getcart', getCart);
+router.post('/cartadd',verifyToken, addToCart);
+router.get('/getcart',verifyToken, getCart);
 
 
 router.get('/verify',verifyToken, verifyTokenAPI);

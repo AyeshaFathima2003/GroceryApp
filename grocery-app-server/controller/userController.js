@@ -173,7 +173,8 @@ const getUserAddresses = async (req, res) => {
 
 const addToWishlist = async (req, res) => {
     try {
-        const userId = req.body.userId; // Get the userId from the JWT payload
+        console.log('User:', req.user);
+        const userId = req.user.userId; // Get the userId from the JWT payload
         const { productId } = req.body;
 
         // Update the user's wishlist to add the product if it's not already there
@@ -204,7 +205,7 @@ const verifyTokenAPI = async (req, res) => {
 
 const removeFromWishlist = async (req, res) => {
     try {
-        const userId = req.body.userId; // Get the userId from the JWT payload
+        const userId = req.user.userId; // Get the userId from the JWT payload
         const { productId } = req.body;
 
         // Update the user's wishlist to remove the product if it exists
@@ -227,6 +228,7 @@ const removeFromWishlist = async (req, res) => {
 
 const getWishlist = async (req, res) => {
     try {
+        console.log('User:', req.user);
         const userId = req.user.userId; // Assuming userId is set in the authentication middleware
         
         // Find the user and populate wishlist products
@@ -249,7 +251,7 @@ const getWishlist = async (req, res) => {
 // Controller to add item to cart
 const addToCart = async (req, res) => {
     try {
-        const userId = req.body.userId; // User ID from JWT payload
+        const userId = req.user.userId; // User ID from JWT payload
         const { productId, quantity } = req.body;
 
         // Validate product existence
@@ -346,7 +348,7 @@ const updateCart = async (req, res) => {
 
 const getCart = async (req, res) => {
     try {
-        const userId = req.query.userId; // User ID from JWT payload
+        const userId = req.user.userId; // User ID from JWT payload
 
         // Find the user and populate product details in the cart
         const user = await User.findById(userId).populate({

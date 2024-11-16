@@ -1,1 +1,32 @@
-<p>wishlist works!</p>
+<div *ngIf="isLoading" class="loading">Loading wishlist...</div>
+<div *ngIf="error" class="error">{{ error }}</div>
+
+<div *ngIf="!isLoading && wishlist.length > 0" class="wishlist">
+  <h2>Your Wishlist</h2>
+  <div *ngFor="let product of wishlist" class="product-card">
+    <h3>{{ product.name }}</h3>
+    <p><strong>Description:</strong> {{ product.description }}</p>
+    <p><strong>Price:</strong> ${{ product.price }}</p>
+    <div *ngIf="product.images.length > 0">
+      <h4>Images:</h4>
+      <ul>
+        <li *ngFor="let image of product.images">{{ image }}</li>
+      </ul>
+    </div>
+
+    <!-- Quantity Selector for Each Product -->
+    <div class="quantity-selector">
+      <button (click)="decreaseQuantity(product)">-</button>
+      <input type="number" [(ngModel)]="product.quantity" min="1" />
+      <button (click)="increaseQuantity(product)">+</button>
+    </div>
+    
+    <!-- Remove Product Button -->
+    <button (click)="removeProduct(product.id)">Remove</button>
+    <button (click)="addToCart(product)">Add to Cart</button>
+  </div>
+</div>
+
+<div *ngIf="!isLoading && wishlist.length === 0">
+  <p>No products found in your wishlist.</p>
+</div>
