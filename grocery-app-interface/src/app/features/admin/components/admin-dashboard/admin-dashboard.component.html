@@ -1,1 +1,29 @@
-<p>admin-dashboard works!</p>
+<header>
+    <h1>Grocery WebApp</h1>
+    <nav class="header-nav">
+      <!-- Menu Toggle Button to open sidenav -->
+      <button mat-icon-button (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+    </nav>
+  </header>
+  
+  <!-- Side Navigation outside header -->
+  <mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #sidenav mode="side">
+      <mat-nav-list>
+        <a mat-list-item routerLink="/admin/home/manageproducts" routerLinkActive="active" (click)="sidenav.close()">Manage Product</a>
+        <a mat-list-item routerLink="/admin/home/manageorders" (click)="sidenav.close()">Orders List</a>
+        <a mat-list-item routerLink="/admin/home/managecustomers" (click)="sidenav.close()">Customers</a>
+
+        <a mat-list-item routerLink="/admin/home/profile" (click)="sidenav.close()">Profile</a>
+        <a mat-list-item routerLink="/admin/home/logout" (click)="logout()">Logout</a>
+      </mat-nav-list>
+    </mat-sidenav>
+  
+    <!-- Main Content Area -->
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+  

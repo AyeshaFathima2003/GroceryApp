@@ -1,9 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
+import { ProductDetailsComponent } from './components/product-details/product-details.component';
+import { AllproductsviewComponent } from './components/allproductsview/allproductsview.component';
 
 const routes: Routes = [
-  { path: 'admindashboard', component: AdminDashboardComponent },
+  { path: 'home', component: AdminDashboardComponent,
+    children: [
+      {path: 'manageproducts', component: AllproductsviewComponent},
+      {path: 'product-details/:id', component: ProductDetailsComponent},
+
+    ]
+      },
 ];
 
 @NgModule({

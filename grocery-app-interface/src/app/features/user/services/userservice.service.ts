@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from '../../../../environments/environment';
-
 @Injectable({
   providedIn: 'root'
 })
@@ -25,13 +24,13 @@ export class UserserviceService {
   }
 
   updateUser(userData: any): Observable<any> {
-    return this.http.put(`${environment.apiUrl}/user/update`, userData).pipe(
+    return this.http.put(`${this.apiUrl}/user/update`, userData).pipe(
       catchError(this.handleError)
     );
   }
 
   getProductDetails(productId: string): Observable<any> {
-    const url = `${environment.apiUrl}/product/searchproduct?productId=${productId}`;
+    const url = `${this.apiUrl}/product/searchproduct?productId=${productId}`;
     return this.http.get<any>(url).pipe(
       catchError((error) => {
         console.error('Error fetching product details:', error);
@@ -42,16 +41,16 @@ export class UserserviceService {
 
   addToWishlist(productId: string): Observable<any> {
     const body = { productId };
-    return this.http.post(`${environment.apiUrl}/user/wishlist`, body);
+    return this.http.post(`${this.apiUrl}/user/wishlist`, body);
   }
 
   getWishlist(): Observable<any> {
-    return this.http.get<any>(`${environment.apiUrl}/user/wishlist`); // Make GET request to the wishlist API
+    return this.http.get<any>(`${this.apiUrl}/user/wishlist`); // Make GET request to the wishlist API
   }
 
   removeProductFromWishlist(productId: string): Observable<any> {
     const body = { productId }; // Prepare the request body with the productId
-    return this.http.delete(`${environment.apiUrl}/user/wishlist`, { body });
+    return this.http.delete(`${this.apiUrl}/user/wishlist`, { body });
   }
 
   addToCart(productId: string, quantity: number): Observable<any> {
@@ -61,11 +60,11 @@ export class UserserviceService {
     };
     console.log('Adding to cart:', body);
 
-    return this.http.post(`${environment.apiUrl}/user/cartadd`, body); // Make POST request to add product to the cart
+    return this.http.post(`${this.apiUrl}/user/cartadd`, body); // Make POST request to add product to the cart
   }
 
   getCart(): Observable<any> {
-    return this.http.get<any>(`${environment.apiUrl}/user/getcart`);
+    return this.http.get<any>(`${this.apiUrl}/user/getcart`);
   }
 
   // Error handling

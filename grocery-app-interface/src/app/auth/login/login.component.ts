@@ -34,7 +34,7 @@ export class LoginComponent {
         console.log('Token:', response.token);
         localStorage.setItem('token', response.token);
         if(response.user.role === 'admin') {
-          this.router.navigate(['/admin/admindashboard']);
+          this.router.navigate(['/admin/home']);
         } else if(response.user.role === 'user') {
           this.router.navigate(['/user/home']);
         }

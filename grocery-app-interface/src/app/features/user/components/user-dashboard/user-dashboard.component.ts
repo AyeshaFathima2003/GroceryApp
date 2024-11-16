@@ -14,8 +14,7 @@ export class UserDashboardComponent {
   constructor(private router: Router) { }
   logout() {
     // Clear user session data (e.g., JWT, user details from localStorage/sessionStorage)
-    localStorage.removeItem('userToken');  // Adjust this as per your storage mechanism
-    sessionStorage.removeItem('userToken');  // If using session storage
+    localStorage.removeItem('token');  // Adjust this as per your storage mechanism
     
     // Optionally, redirect to login page
     this.router.navigate(['/auth/login']);

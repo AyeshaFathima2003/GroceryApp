@@ -1,0 +1,19 @@
+<div *ngIf="isLoading" class="loading">Loading product details...</div>
+<div *ngIf="error" class="error">{{ error }}</div>
+<div *ngIf="product && !isLoading && !error" class="product-details">
+  <h1>{{ product.name }}</h1>
+  <p><strong>Description:</strong> {{ product.description }}</p>
+  <p><strong>Price:</strong> ${{ product.price }}</p>
+  <p><strong>Stock:</strong> {{ product.stock }}</p>
+  <p><strong>Category:</strong> {{ product.category }}</p>
+  <div>
+    <strong>Images:</strong>
+    <div *ngFor="let image of product.images" class="image-container">
+      <img [src]="image" alt="{{ product.name }}" />
+    </div>
+  </div>
+  <p><strong>Created At:</strong> {{ product.createdAt | date: 'medium' }}</p>
+  <p><strong>Updated At:</strong> {{ product.updatedAt | date: 'medium' }}</p>
+  <button (click)="deleteProduct()" class="btn btn-danger">Delete</button>
+
+</div>
