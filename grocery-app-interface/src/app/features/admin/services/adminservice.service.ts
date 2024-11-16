@@ -30,4 +30,8 @@ export class AdminserviceService {
   deleteProduct(id: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/product/deleteproduct?id=${id}`);
   }
+
+  createProduct(product: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/product/createproduct`, product);
+  }
 }
