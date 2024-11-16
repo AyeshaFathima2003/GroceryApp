@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { AdminserviceService } from '../../services/adminservice.service';
 
 @Component({
   selector: 'app-create-product',
@@ -17,18 +18,15 @@ export class CreateProductComponent {
     imageUrl: ''
   };
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router, private adminservice: AdminserviceService) {}
 
   onSubmit(): void {
     // Define the API endpoint
-    const apiUrl = 'http://localhost:5000/api/product/createproduct';
-
-    // Make the POST request to the API
-    this.http.post(apiUrl, this.product).subscribe(
+    this.adminservice.createProduct(this.product).subscribe(
       response => {
         // Handle success response
         console.log('Product created successfully', response);
-        // Redirect to another page (for example, product list page)
+        // Redirect to the product list page or another appropriate page
         this.router.navigate(['/admin/home/products']);
       },
       error => {

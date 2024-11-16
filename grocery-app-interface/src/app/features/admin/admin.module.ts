@@ -5,16 +5,20 @@ import { ProductDetailsComponent } from './components/product-details/product-de
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminserviceService } from './services/adminservice.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { CreateProductComponent } from './components/create-product/create-product.component';
+import { FormsModule } from '@angular/forms'; // <-- Add this import
 
 @NgModule({
   declarations: [
     AllproductsviewComponent,
-    ProductDetailsComponent
+    ProductDetailsComponent,
+    CreateProductComponent
   ],
   imports: [
     CommonModule,
     AdminRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule // <-- Add this line
   ],
   providers: [AdminserviceService]
 })
