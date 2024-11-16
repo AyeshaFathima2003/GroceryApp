@@ -5,10 +5,7 @@ const router = express.Router();
 
 const {verifyToken} = require('../middleware/verifyToken');
 
-const {verifyTokenAPI,signup,login,getUserProfile,logoutUser,updateUserProfile,addUserAddress,getUserAddresses,addToWishlist,removeFromWishlist,getWishlist,addToCart,updateCart,getCart, removeCartItem} = require('../controller/userController');
-
-
-
+const {verifyTokenAPI,signup,removeCartItem,login,getUserProfile,logoutUser,updateUserProfile,addUserAddress,getUserAddresses,addToWishlist,removeFromWishlist,getWishlist,addToCart,updateCart,getCart} = require('../controller/userController');
 
 // Signup route
 router.post('/signup', signup);
