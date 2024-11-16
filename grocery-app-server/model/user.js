@@ -35,7 +35,7 @@ const userSchema = new mongoose.Schema({
     addresses: [addressSchema], // Nested Address Schema
     cart: cartSchema, // Nested Cart Schema
     wishlist: wishlistSchema, // Nested Wishlist Schema
-    role: { type: String, enum: ['customer', 'seller', 'admin'], default: 'customer' }
+    role: { type: String, enum: ['customer', 'user', 'admin'], default: 'customer' }
 }, { timestamps: true });
 
 userSchema.index({ email: 1 });  // Indexing email for faster lookup

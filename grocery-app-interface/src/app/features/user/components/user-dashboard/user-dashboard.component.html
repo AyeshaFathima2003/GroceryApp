@@ -1,0 +1,30 @@
+<header>
+    <h1>Grocery WebApp</h1>
+    <nav class="header-nav">
+      <!-- Menu Toggle Button to open sidenav -->
+      <button mat-icon-button (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+    </nav>
+  </header>
+  
+  <!-- Side Navigation outside header -->
+  <mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #sidenav mode="side">
+      <mat-nav-list>
+        <a mat-list-item routerLink="/user/home/allproductsview" routerLinkActive="active" (click)="sidenav.close()">Product</a>
+        <a mat-list-item routerLink="/user/home/wishlist" (click)="sidenav.close()">Wishlist</a>
+        <a mat-list-item routerLink="/user/home/cart" (click)="sidenav.close()">Cart</a>
+        <a mat-list-item routerLink="/user/home/order" (click)="sidenav.close()">Order</a>
+
+        <a mat-list-item routerLink="/user/home/profile" (click)="sidenav.close()">Profile</a>
+        <a mat-list-item routerLink="/user/home/logout" (click)="logout()">Logout</a>
+      </mat-nav-list>
+    </mat-sidenav>
+  
+    <!-- Main Content Area -->
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+  

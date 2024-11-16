@@ -1,24 +1,23 @@
+import { CommonModule } from '@angular/common';
+import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // Import FormsModule
+import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms'; // Import FormsModule
+import { RouterModule } from '@angular/router'; // Import RouterModule here
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from '../app/components/login/login.component';
-import { HttpClientModule } from '@angular/common/http';
-import { AuthService } from './service/auth.service';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatButtonModule } from '@angular/material/button';
-import { UsernavbarComponent } from './components/usernavbar/usernavbar.component';
-import { UserfooterComponent } from './components/userfooter/userfooter.component';
-import { RouterModule } from '@angular/router'; // Import RouterModule here
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import { AuthService } from './core/services/auth.service';
+import { AdminModule } from './features/admin/admin.module';
+import { UserModule } from './features/user/user.module';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import {  AuthInterceptor } from './core/interceptor/auth.interceptor';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    UserfooterComponent,
-    UsernavbarComponent
   ],
   imports: [
     BrowserModule,
@@ -28,8 +27,20 @@ import { provideHttpClient, withFetch } from '@angular/common/http';
     MatMenuModule,
     MatButtonModule,
     RouterModule,
+    ReactiveFormsModule,
+    CommonModule,
+    AdminModule,
+    UserModule,
+    ToastrModule.forRoot()
   ],
-  providers: [AuthService, provideHttpClient(withFetch())],
+  providers: [
+    AuthService, provideHttpClient(withFetch()),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

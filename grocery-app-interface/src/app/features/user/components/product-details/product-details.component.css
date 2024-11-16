@@ -1,0 +1,22 @@
+.loading {
+    font-size: 18px;
+    color: blue;
+  }
+  
+  .error {
+    color: red;
+    font-size: 16px;
+  }
+  
+  .product-details {
+    font-family: Arial, sans-serif;
+  }
+  
+  .image-container img {
+    width: 100px;
+    height: auto;
+    margin: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
