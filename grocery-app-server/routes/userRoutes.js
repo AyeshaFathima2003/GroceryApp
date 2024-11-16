@@ -4,7 +4,7 @@ const express = require('express');
 const router = express.Router();
 
 const {verifyToken} = require('../middleware/verifyToken');
-const {verifyTokenAPI,signup,login,getUserProfile,logoutUser,updateUserProfile,addUserAddress,getUserAddresses,addToWishlist,removeFromWishlist,getWishlist,addToCart,updateCart,getCart,placeOrder,getUserOrders} = require('../controller/userController');
+const {verifyTokenAPI,signup,login,getUserProfile,logoutUser,updateUserProfile,addUserAddress,getUserAddresses,addToWishlist,removeFromWishlist,getWishlist,addToCart,updateCart,getCart, removeCartItem} = require('../controller/userController');
 
 // Signup route
 router.post('/signup', signup);
@@ -20,7 +20,7 @@ router.get('/wishlist', verifyToken ,getWishlist);
 router.post('/cartadd',verifyToken, addToCart);
 router.get('/getcart',verifyToken, getCart);
 
-
+router.delete('/cart',verifyToken, removeCartItem);
 router.get('/verify',verifyToken, verifyTokenAPI);
 
 module.exports = router;

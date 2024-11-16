@@ -368,6 +368,43 @@ const getCart = async (req, res) => {
     }
 };
 
+const removeCartItem = async (req, res) => {
+    try {
+        const userId = req.user.userId; // Get the user ID from JWT payload
+        const { productId } = req.body; // Get the product ID to remove from the request body
+
+        // Find the user and their cart
+        const user = await User.findById(userId);
+
+        if (!user || !user.cart) {
+            return res.status(404).json({ message: 'Cart not found' });
+        }
+
+        // Check if the product exists in the cart
+        const cartItemIndex = user.cart.items.findIndex(
+            (item) => item.productId.toString() === productId
+        );
+
+        if (cartItemIndex === -1) {
+            return res.status(404).json({ message: 'Product not found in cart' });
+        }
+
+        // Remove the item from the cart
+        user.cart.items.splice(cartItemIndex, 1);
+
+        // Save the updated cart
+        await user.save();
+
+        res.status(200).json({ message: 'Product removed from cart', cart: user.cart });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error removing product from cart', error });
+    }
+};
+
+
+
+
  // Adjust the path if necessary
 const placeOrder = async (req, res) => {
     try {
@@ -432,7 +469,7 @@ const getUserOrders = async (req, res) => {
 
 
 
-module.exports = {verifyTokenAPI,  getUserOrders,getWishlist, removeFromWishlist, addToWishlist, getUserAddresses, addUserAddress, signup, login, getUserProfile, logoutUser, updateUserProfile ,addToCart,updateCart,getCart,placeOrder};
+module.exports = {verifyTokenAPI,  getUserOrders,getWishlist, removeFromWishlist, addToWishlist, getUserAddresses, addUserAddress, signup, login, getUserProfile, logoutUser, updateUserProfile ,addToCart,updateCart,getCart,placeOrder,removeCartItem};
 
 
 

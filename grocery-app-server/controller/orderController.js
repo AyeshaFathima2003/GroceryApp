@@ -89,37 +89,43 @@ const getOrderDetails = async (req, res) => {
 const createOrder = async (req, res) => {
     try {
         const userId = req.user.userId; // Get the user ID from JWT payload
+        console.log(userId);
 
         // Fetch the user's cart
-        const cart = await Cart.findOne({ userId }).populate('items.productId');
+        const user = await User.findOne({ _id: userId }).populate('cart.items.productId');
 
-        if (!cart || cart.items.length === 0) {
+        if (!user || !user.cart) {
+            return res.status(404).json({ message: 'Cart not found' });
+        }
+
+        // Check if the cart is empty
+        if (!user.cart.items || user.cart.items.length === 0) {
             return res.status(400).json({ message: 'Your cart is empty' });
         }
 
         // Calculate the total amount for the order
         let totalAmount = 0;
-        cart.items.forEach(item => {
+        user.cart.items.forEach(item => {
             totalAmount += item.productId.price * item.quantity;
         });
 
         // Create an order
         const newOrder = new Order({
             userId,
-            items: cart.items.map(item => ({
+            items: user.cart.items.map(item => ({
                 productId: item.productId._id,
                 quantity: item.quantity,
                 price: item.productId.price
             })),
             totalAmount,
-            status: 'pending', // Default status
+            status: 'pending' // Default status
         });
 
         await newOrder.save();
 
         // Clear the cart after placing the order
-        cart.items = [];
-        await cart.save();
+        user.cart.items = [];
+        await user.save();
 
         res.status(201).json({ message: 'Order placed successfully', order: newOrder });
     } catch (error) {
@@ -127,7 +133,42 @@ const createOrder = async (req, res) => {
         res.status(500).json({ message: 'Error placing order', error });
     }
 };
-module.exports = { getUserOrders, getOrderDetails, placeOrder, createOrder };
+
+
+const updateOrderStatus = async (req, res) => {
+    try {
+        const { orderId } = req.params;
+        const { status } = req.body;
+
+        // Define allowed statuses
+        const allowedStatuses = ['pending', 'confirmed', 'shipped', 'delivered', 'cancelled'];
+
+        // Check if the provided status is valid
+        if (!allowedStatuses.includes(status)) {
+            return res.status(400).json({ message: 'Invalid order status' });
+        }
+
+        // Find the order and update its status
+        const order = await Order.findByIdAndUpdate(
+            orderId,
+            { status },
+            { new: true, runValidators: true }
+        );
+
+        if (!order) {
+            return res.status(404).json({ message: 'Order not found' });
+        }
+
+        res.status(200).json({ message: 'Order status updated successfully', order });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error updating order status', error });
+    }
+};
+
+
+
+module.exports = { getUserOrders, getOrderDetails, placeOrder, createOrder, updateOrderStatus };
 
 
 
