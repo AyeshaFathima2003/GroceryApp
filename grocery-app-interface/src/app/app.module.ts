@@ -13,6 +13,8 @@ import { AdminModule } from './features/admin/admin.module';
 import { UserModule } from './features/user/user.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import {  AuthInterceptor } from './core/interceptor/auth.interceptor';
+import { ToastrModule } from 'ngx-toastr';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,7 +30,8 @@ import {  AuthInterceptor } from './core/interceptor/auth.interceptor';
     ReactiveFormsModule,
     CommonModule,
     AdminModule,
-    UserModule
+    UserModule,
+    ToastrModule.forRoot()
   ],
   providers: [
     AuthService, provideHttpClient(withFetch()),
