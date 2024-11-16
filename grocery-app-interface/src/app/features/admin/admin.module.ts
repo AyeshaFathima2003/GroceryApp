@@ -5,7 +5,7 @@ import { ProductDetailsComponent } from './components/product-details/product-de
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminserviceService } from './services/adminservice.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-
+import { FormsModule } from '@angular/forms'; // <-- Add this import
 @NgModule({
   declarations: [
     AllproductsviewComponent,
@@ -14,7 +14,8 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
   imports: [
     CommonModule,
     AdminRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [AdminserviceService]
 })
